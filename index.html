@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Social Dashboard</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #080b18;
+            --card: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.12);
+            --text: #ffffff;
+            --muted: #a6aec5;
+            --accent: #8b5cf6;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 15%,
+                    rgba(124, 58, 237, 0.23), transparent 35%),
+                radial-gradient(circle at 85% 80%,
+                    rgba(14, 165, 233, 0.15), transparent 35%),
+                var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 16px;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 850px;
+            text-align: center;
+        }
+
+        /* Top bar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            display: grid;
+            place-items: center;
+        }
+
+        .online {
+            color: #86efac;
+            font-size: 12px;
+            background: rgba(34, 197, 94, 0.10);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            padding: 9px 13px;
+            border-radius: 30px;
+        }
+
+        .online span {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        /* Profile */
+        .profile {
+            padding: 35px 20px 28px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar-wrapper {
+            width: 155px;
+            height: 155px;
+            margin: 0 auto 22px;
+            position: relative;
+        }
+
+        .avatar-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #8b5cf6,
+                #06b6d4,
+                #ec4899,
+                #8b5cf6
+            );
+            animation: rotate 5s linear infinite;
+        }
+
+        .avatar {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 5px solid #111426;
+            border-radius: 50%;
+            object-fit: cover;
+            transform: rotate(320deg);
+            background: #22263c;
+            display: block;
+        }
+
+        .edit-photo {
+            position: absolute;
+            right: 2px;
+            bottom: 5px;
+            width: 38px;
+            height: 38px;
+            background: #8b5cf6;
+            border: 3px solid #111426;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .edit-photo:hover {
+            transform: scale(1.1);
+            background: #a78bfa;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile h1 {
+            font-size: clamp(27px, 5vw, 36px);
+            margin-bottom: 10px;
+            letter-spacing: -0.7px;
+        }
+
+        .profile h1 span {
+            color: #a78bfa;
+        }
+
+        .description {
+            max-width: 440px;
+            margin: 0 auto;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 17px;
+            padding: 8px 13px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: #d5c8ff;
+            background: rgba(139, 92, 246, 0.10);
+        }
+
+        /* Social links */
+        .section-heading {
+            margin: 32px 0 18px;
+            text-align: left;
+        }
+
+        .section-heading h2 {
+            font-size: 19px;
+            margin-bottom: 6px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .social-card {
+            --social-color: #8b5cf6;
+            text-decoration: none;
+            color: var(--text);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            padding: 23px 10px 19px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 13px;
+            min-width: 0;
+            transition: transform 0.25s, background 0.25s,
+                        border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.10);
+            border-color: var(--social-color);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .social-icon {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            border-radius: 17px;
+            background: color-mix(
+                in srgb, var(--social-color) 16%, transparent
+            );
+            color: var(--social-color);
+            font-size: 26px;
+            transition: 0.25s;
+        }
+
+        .social-card:hover .social-icon {
+            background: var(--social-color);
+            color: #ffffff;
+            transform: scale(1.06);
+        }
+
+        .social-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Brand colors */
+        .contact  { --social-color: #38bdf8; }
+        .messenger { --social-color: #168aff; }
+        .facebook { --social-color: #1877f2; }
+        .tiktok { --social-color: #ff4d8d; }
+        .twitter { --social-color: #dce4f4; }
+        .instagram { --social-color: #f472b6; }
+        .viber { --social-color: #a78bfa; }
+        .whatsapp { --social-color: #25d366; }
+
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            color: #777f99;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .footer i {
+            color: #a78bfa;
+        }
+
+        /* Mobile */
+        @media (max-width: 520px) {
+            body {
+                padding: 20px 12px;
+                align-items: flex-start;
+            }
+
+            .topbar {
+                margin-bottom: 25px;
+            }
+
+            .brand {
+                font-size: 13px;
+            }
+
+            .online {
+                font-size: 10px;
+                padding: 8px 10px;
+            }
+
+            .profile {
+                padding: 30px 15px 25px;
+                border-radius: 23px;
+            }
+
+            .avatar-wrapper {
+                width: 130px;
+                height: 130px;
+            }
+
+            .social-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 11px;
+            }
+
+            .social-card {
+                padding: 19px 8px;
+            }
+
+            .section-heading {
+                margin-top: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="dashboard">
+
+        <!-- Header -->
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <span>Company Name</span>
+            </div>
+
+            <div class="online">
+                <span></span> Available
+            </div>
+        </header>
+
+        <!-- Profile Card -->
+        <section class="profile">
+
+            <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+
+                <!-- Palitan ang profile.jpg ng sarili mong picture -->
+                <img
+                    src="p1.jpg"
+                    alt="My Profile Picture"
+                    class="avatar"
+                    id="profileImage"
+
+                >
+
+                <label class="edit-photo" for="photoInput"
+                       title="Change profile picture">
+                    <i class="fa-solid fa-camera"></i>
+                </label>
+
+                <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*"
+                    hidden
+                >
+
+            </div>
+
+            <!-- Palitan ang pangalan -->
+            <h1>Hello, I'm <span id="userName">Kent John Branzuela</span></h1>
+
+            <p class="description" id="userDescription">
+                Welcome to my personal dashboard.
+                Connect with me through my social media accounts.
+            </p>
+
+            <div class="profile-badge">
+                <i class="fa-solid fa-circle-check"></i>
+                Personal Profile
+            </div>
+
+        </section>
+
+        <!-- Social Media Section -->
+        <div class="section-heading">
+            <h2>Connect With Me</h2>
+            <p>Find me on my social media platforms.</p>
+        </div>
+
+        <section class="social-grid">
+
+            <a class="social-card contact"
+               href="tel:+639051412422">
+                <div class="social-icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <span class="social-name">Contact</span>
+            </a>
+
+            <a class="social-card messenger"
+               href="https://m.me/kentjohnAbranzuela"
+               target="_blank" rel="noopener noreferrer">
+                <div class="social-icon">
+                    <i class="fa-brands fa-facebook-messenger"></i>
+                </div>
+                <span class="social-name">Messenger</span>
+            </a>
+
+            <a class="social-card facebook"
+               href="https://www.facebook.com/kentjohnAbranzuela"
+               target="_blank" rel="noopener noreferrer">
+                <div class="social-icon">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </div>
+                <span class="social-name">Facebook</span>
+            </a>
+
+            <a class="social-card tiktok"
+               href="https://www.tiktok.com/@kentjohnbranzuela"
+               target="_blank" rel="noopener noreferrer">
+                <div class="social-icon">
+                    <i class="fa-brands fa-tiktok"></i>
+                </div>
+                <span class="social-name">TikTok</span>
+            </a>
+
+            <a class="social-card twitter"
+               href="https://x.com/YOUR_USERNAME"
+               target="_blank" rel="noopener noreferrer">
+                <div class="social-icon">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </div>
+                <span class="social-name">X / Twitter</span>
+            </a>
+
+            <a class="social-card instagram"
+               href="https://www.instagram.com/kenjieee1/"
+               target="_blank" rel="noopener noreferrer">
+                <div class="social-icon">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <span class="social-name">Instagram</span>
+            </a>
+
+            <a class="social-card viber"
+               href="viber://chat?number=%2B639051412422">
+                <div class="social-icon">
+                    <i class="fa-brands fa-viber"></i>
+                </div>
+                <span class="social-name">Viber</span>
+            </a>
+
+            <a class="social-card whatsapp"
+               href="https://wa.me/639051412422"
+               target="_blank" rel="noopener noreferrer">
+                <div class="social-icon">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <span class="social-name">WhatsApp</span>
+            </a>
+
+        </section>
+
+        <footer class="footer">
+            <p>
+                <i class="fa-solid fa-heart"></i>
+                Made with care
+            </p>
+            <p>© <span id="year"></span> Kent John Branzuela. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Automatically update the year
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        // Change profile picture
+        const photoInput = document.getElementById("photoInput");
+        const profileImage = document.getElementById("profileImage");
+
+        photoInput.addEventListener("change", function () {
+            const file = this.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert("Please select a valid image.");
+                return;
+            }
+
+            const imageURL = URL.createObjectURL(file);
+            profileImage.src = imageURL;
+        });
+
+        // Optional: change your profile name and description here
+        const profileSettings = {
+            name: "Kent John Branzuela",
+            description:
+                "Welcome to my personal dashboard. Connect with me through my social media accounts."
+        };
+
+        document.getElementById("userName").textContent =
+            profileSettings.name;
+
+        document.getElementById("userDescription").textContent =
+            profileSettings.description;
+    </script>
+
+</body>
+</html>
