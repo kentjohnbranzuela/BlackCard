@@ -4,327 +4,671 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Social Dashboard</title>
 
-    <!-- Font Awesome Icons -->
+    <title>My Personal Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
+        :root {
+            --green: #193c30;
+            --green-light: #315d46;
+            --mint: #dce8d4;
+            --gold: #cbb581;
+            --background: #f8f7f2;
+            --text: #18352d;
+            --muted: #737d78;
+            --border: #e6e3da;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg: #080b18;
-            --card: rgba(255, 255, 255, 0.06);
-            --border: rgba(255, 255, 255, 0.12);
-            --text: #ffffff;
-            --muted: #a6aec5;
-            --accent: #8b5cf6;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--background);
             color: var(--text);
-            background:
-                radial-gradient(circle at 15% 15%,
-                    rgba(124, 58, 237, 0.23), transparent 35%),
-                radial-gradient(circle at 85% 80%,
-                    rgba(14, 165, 233, 0.15), transparent 35%),
-                var(--bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px 16px;
         }
 
-        .dashboard {
-            width: 100%;
-            max-width: 850px;
-            text-align: center;
+        a {
+            color: inherit;
         }
 
-        /* Top bar */
+        /* HEADER */
+
         .topbar {
+            min-height: 94px;
+            padding: 20px 7%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 35px;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,.72);
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            gap: 17px;
         }
 
         .brand-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            display: grid;
-            place-items: center;
+            font-size: 37px;
+            color: var(--green);
+        }
+
+        .brand-name {
+            font-size: 27px;
+            font-weight: 700;
+            letter-spacing: -.8px;
+        }
+
+        .brand-name span {
+            color: var(--green-light);
+        }
+
+        .brand-tagline {
+            margin-top: 4px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--muted);
         }
 
         .online {
-            color: #86efac;
-            font-size: 12px;
-            background: rgba(34, 197, 94, 0.10);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            padding: 9px 13px;
-            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 21px;
+            border-radius: 40px;
+            background: #e9efe3;
+            color: var(--green);
+            font-size: 14px;
+            white-space: nowrap;
         }
 
-        .online span {
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            background: #4ade80;
+        .online-dot {
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
-            margin-right: 6px;
+            background: #269d5b;
         }
 
-        /* Profile */
+        /* MAIN */
+
+        .dashboard {
+            width: min(1200px, 88%);
+            margin: 42px auto 0;
+        }
+
+        /* PROFILE */
+
         .profile {
-            padding: 35px 20px 28px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            backdrop-filter: blur(18px);
-            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.2);
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            grid-template-columns: 275px 1fr 100px;
+            align-items: center;
+            gap: 35px;
+            min-height: 330px;
+            padding: 40px 45px;
+            overflow: hidden;
+            border: 1px solid #e3e0d5;
+            border-radius: 22px;
+            background:
+                radial-gradient(ellipse at 100% 100%,
+                    #e3edda 0%, transparent 34%),
+                linear-gradient(120deg, #fff 0%, #faf9f4 100%);
+            box-shadow: 0 12px 35px rgba(34, 48, 38, .045);
+        }
+
+        .profile::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: -105px;
+            left: -115px;
+            width: 210px;
+            height: 210px;
+            background: var(--green);
+            transform: rotate(45deg);
+            opacity: .06;
         }
 
         .avatar-wrapper {
-            width: 155px;
-            height: 155px;
-            margin: 0 auto 22px;
+            width: 225px;
+            height: 225px;
             position: relative;
+            margin: auto;
         }
 
         .avatar-ring {
             position: absolute;
-            inset: -6px;
+            inset: -7px;
+            border: 2px solid #e6d6ad;
             border-radius: 50%;
-            background: conic-gradient(
-                #8b5cf6,
-                #06b6d4,
-                #ec4899,
-                #8b5cf6
-            );
-            animation: rotate 5s linear infinite;
         }
 
         .avatar {
-            position: relative;
             width: 100%;
             height: 100%;
-            border: 5px solid #111426;
-            border-radius: 50%;
-            object-fit: cover;
-            transform: rotate(320deg);
-            background: #22263c;
             display: block;
+            object-fit: cover;
+            border: 5px solid white;
+             object-position: center 10%;
+            transform: rotate(deg);
+            border-radius: 50%;
+            background: #e7e8e2;
         }
 
         .edit-photo {
             position: absolute;
-            right: 2px;
-            bottom: 5px;
-            width: 38px;
-            height: 38px;
-            background: #8b5cf6;
-            border: 3px solid #111426;
-            border-radius: 50%;
+            right: -2px;
+            bottom: 10px;
+            width: 48px;
+            height: 48px;
             display: grid;
             place-items: center;
+            border: 5px solid white;
+            border-radius: 50%;
+            background: var(--green);
+            color: white;
             cursor: pointer;
-            transition: 0.2s;
+            transition: .2s;
         }
 
         .edit-photo:hover {
-            transform: scale(1.1);
-            background: #a78bfa;
+            background: var(--green-light);
+            transform: scale(1.06);
         }
 
-        @keyframes rotate {
-            to {
-                transform: rotate(360deg);
-            }
+        .profile-info {
+            padding-left: 35px;
+            border-left: 2px solid #e4d6b6;
+        }
+
+        .eyebrow {
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 4px;
         }
 
         .profile h1 {
-            font-size: clamp(27px, 5vw, 36px);
-            margin-bottom: 10px;
-            letter-spacing: -0.7px;
+            margin-bottom: 13px;
+            font-size: clamp(28px, 3.5vw, 43px);
+            line-height: 1.15;
+            letter-spacing: -1.2px;
+            overflow-wrap: anywhere;
         }
 
         .profile h1 span {
-            color: #a78bfa;
+            color: var(--green-light);
         }
 
         .description {
-            max-width: 440px;
-            margin: 0 auto;
+            max-width: 540px;
             color: var(--muted);
-            line-height: 1.7;
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.8;
         }
 
         .profile-badge {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            margin-top: 17px;
-            padding: 8px 13px;
-            font-size: 12px;
-            border: 1px solid var(--border);
+            gap: 9px;
+            margin-top: 19px;
+            padding: 12px 20px;
             border-radius: 30px;
-            color: #d5c8ff;
-            background: rgba(139, 92, 246, 0.10);
+            background: var(--green);
+            color: white;
+            font-size: 13px;
         }
 
-        /* Social links */
+        .profile-badge i {
+            color: #e1d1a7;
+        }
+
+        .quote {
+            align-self: center;
+            color: var(--green-light);
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            font-style: italic;
+            line-height: 1.55;
+            transform: rotate(-5deg);
+        }
+
+        .quote-line {
+            display: block;
+            width: 65px;
+            height: 2px;
+            margin-top: 12px;
+            background: var(--gold);
+        }
+
+        /* SOCIAL HEADING */
+
         .section-heading {
-            margin: 32px 0 18px;
-            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin: 45px 10px 28px;
+        }
+
+        .heading-icon {
+            font-size: 37px;
+            color: var(--green-light);
+        }
+
+        .heading-text {
+            flex-shrink: 0;
         }
 
         .section-heading h2 {
-            font-size: 19px;
-            margin-bottom: 6px;
+            font-size: 34px;
+            letter-spacing: -.8px;
+        }
+
+        .section-heading h2 span {
+            color: var(--green-light);
         }
 
         .section-heading p {
+            margin-top: 6px;
             color: var(--muted);
-            font-size: 13px;
+            font-size: 15px;
         }
+
+        .heading-line {
+            height: 1px;
+            flex: 1;
+            margin-left: 10px;
+            background: #a7b8a3;
+        }
+
+        /* SOCIAL CARDS */
 
         .social-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 14px;
+            gap: 20px;
         }
 
         .social-card {
-            --social-color: #8b5cf6;
-            text-decoration: none;
-            color: var(--text);
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 19px;
-            padding: 23px 10px 19px;
+            --social-color: var(--green-light);
+
+            position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 13px;
-            min-width: 0;
-            transition: transform 0.25s, background 0.25s,
-                        border-color 0.25s, box-shadow 0.25s;
+            align-items: flex-start;
+            min-height: 218px;
+            padding: 25px 27px;
+            overflow: hidden;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: rgba(255,255,255,.75);
+            box-shadow: 0 8px 24px rgba(30, 45, 35, .035);
+            transition: transform .22s ease,
+                        border-color .22s ease,
+                        box-shadow .22s ease;
         }
 
         .social-card:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.10);
-            border-color: var(--social-color);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+            transform: translateY(-4px);
+            border-color: #bdcbb8;
+            box-shadow: 0 14px 30px rgba(30, 45, 35, .09);
         }
 
         .social-icon {
-            width: 54px;
-            height: 54px;
+            width: 62px;
+            height: 62px;
             display: grid;
             place-items: center;
-            border-radius: 17px;
-            background: color-mix(
-                in srgb, var(--social-color) 16%, transparent
-            );
+            margin-bottom: 17px;
+            border-radius: 50%;
+            background: #f0f1eb;
             color: var(--social-color);
-            font-size: 26px;
-            transition: 0.25s;
-        }
-
-        .social-card:hover .social-icon {
-            background: var(--social-color);
-            color: #ffffff;
-            transform: scale(1.06);
+            font-size: 29px;
         }
 
         .social-name {
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .social-description {
+            margin-top: 7px;
+            color: var(--muted);
             font-size: 13px;
-            font-weight: 600;
         }
 
-        /* Brand colors */
-        .contact  { --social-color: #38bdf8; }
-        .messenger { --social-color: #168aff; }
-        .facebook { --social-color: #1877f2; }
-        .tiktok { --social-color: #ff4d8d; }
-        .twitter { --social-color: #dce4f4; }
-        .instagram { --social-color: #f472b6; }
-        .viber { --social-color: #a78bfa; }
-        .whatsapp { --social-color: #25d366; }
+        .social-arrow {
+            position: absolute;
+            right: 20px;
+            bottom: 21px;
+            width: 35px;
+            height: 35px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--mint);
+            color: var(--green);
+            transition: .2s;
+        }
 
-        /* Footer */
+        .social-card:hover .social-arrow {
+            background: var(--green);
+            color: white;
+        }
+
+        .contact    { --social-color: #2d9861; }
+        .messenger  { --social-color: #168aff; }
+        .facebook   { --social-color: #1877f2; }
+        .tiktok     { --social-color: #111820; }
+        .twitter    { --social-color: #111820; }
+        .instagram  { --social-color: #cf4b88; }
+        .viber      { --social-color: #7853d6; }
+        .whatsapp   { --social-color: #25a85a; }
+
+        .contact .social-icon {
+            background: #e1eedb;
+        }
+
+        .messenger .social-icon {
+            background: #e7f1ff;
+        }
+
+        .facebook .social-icon {
+            background: #e8efff;
+        }
+
+        .tiktok .social-icon,
+        .twitter .social-icon {
+            background: #edf0ef;
+        }
+
+        .instagram .social-icon {
+            background: #f8e6ef;
+        }
+
+        .viber .social-icon {
+            background: #eee8ff;
+        }
+
+        .whatsapp .social-icon {
+            background: #e1f3e5;
+        }
+
+        /* FOOTER */
+
         .footer {
-            margin-top: 30px;
-            color: #777f99;
-            font-size: 12px;
-            line-height: 1.8;
+            position: relative;
+            margin-top: 65px;
+            padding: 42px 7% 35px;
+            overflow: hidden;
+            background: var(--green);
+            color: white;
         }
 
-        .footer i {
-            color: #a78bfa;
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: -65px;
+            left: -5%;
+            width: 110%;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--background);
         }
 
-        /* Mobile */
-        @media (max-width: 520px) {
-            body {
-                padding: 20px 12px;
-                align-items: flex-start;
-            }
+        .footer-inner {
+            position: relative;
+            width: min(1200px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
+        }
 
-            .topbar {
-                margin-bottom: 25px;
-            }
+        .footer-note {
+            color: #e5d6ae;
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+            font-style: italic;
+        }
 
-            .brand {
-                font-size: 13px;
-            }
+        .footer-center {
+            font-size: 13px;
+            line-height: 2;
+        }
 
-            .online {
-                font-size: 10px;
-                padding: 8px 10px;
+        .footer-center i {
+            display: block;
+            margin-bottom: 10px;
+            color: #d7c394;
+            font-size: 23px;
+        }
+
+        .footer-right {
+            color: #e5d6ae;
+            font-size: 11px;
+            letter-spacing: 2px;
+            line-height: 1.9;
+        }
+
+        /* TABLET */
+
+        @media (max-width: 950px) {
+            .dashboard {
+                width: 92%;
             }
 
             .profile {
-                padding: 30px 15px 25px;
-                border-radius: 23px;
+                grid-template-columns: 200px 1fr;
+                gap: 25px;
+                padding: 35px;
             }
 
             .avatar-wrapper {
-                width: 130px;
-                height: 130px;
+                width: 175px;
+                height: 175px;
+            }
+
+            .profile-info {
+                padding-left: 25px;
+            }
+
+            .quote {
+                display: none;
             }
 
             .social-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 11px;
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 560px) {
+            .topbar {
+                min-height: 75px;
+                padding: 16px 5%;
+                gap: 10px;
             }
 
-            .social-card {
-                padding: 19px 8px;
+            .brand {
+                gap: 10px;
+            }
+
+            .brand-icon {
+                font-size: 28px;
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+            .brand-tagline {
+                font-size: 8px;
+                letter-spacing: 1.5px;
+            }
+
+            .online {
+                padding: 9px 12px;
+                font-size: 11px;
+            }
+
+            .dashboard {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .profile {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 30px 22px;
+                border-radius: 18px;
+                text-align: center;
+            }
+
+            .avatar-wrapper {
+                width: 145px;
+                height: 145px;
+            }
+
+            .edit-photo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .profile-info {
+                padding: 0;
+                border: 0;
+            }
+
+            .eyebrow {
+                font-size: 10px;
+                letter-spacing: 3px;
+            }
+
+            .profile h1 {
+                font-size: 30px;
+                letter-spacing: -.8px;
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            .profile-badge {
+                margin-top: 16px;
+                padding: 11px 17px;
+                font-size: 12px;
             }
 
             .section-heading {
-                margin-top: 27px;
+                gap: 13px;
+                margin: 35px 2px 22px;
+            }
+
+            .heading-icon {
+                font-size: 27px;
+            }
+
+            .section-heading h2 {
+                font-size: 24px;
+            }
+
+            .section-heading p {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            .heading-line {
+                display: none;
+            }
+
+            .social-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .social-card {
+                min-height: 175px;
+                padding: 18px 15px;
+                border-radius: 15px;
+            }
+
+            .social-icon {
+                width: 49px;
+                height: 49px;
+                margin-bottom: 13px;
+                font-size: 23px;
+            }
+
+            .social-name {
+                font-size: 15px;
+            }
+
+            .social-description {
+                max-width: 100%;
+                padding-right: 3px;
+                font-size: 11px;
+            }
+
+            .social-arrow {
+                right: 12px;
+                bottom: 12px;
+                width: 27px;
+                height: 27px;
+                font-size: 11px;
+            }
+
+            .footer {
+                margin-top: 50px;
+                padding: 35px 6% 25px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .footer-note,
+            .footer-right {
+                display: none;
+            }
+
+            .footer-center {
+                font-size: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
             }
         }
     </style>
@@ -332,39 +676,45 @@
 
 <body>
 
+    <!-- HEADER -->
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+
+            <div>
+                <div class="brand-name">My <span>Dashboard</span></div>
+                <div class="brand-tagline">CONNECT · SHARE · GROW</div>
+            </div>
+        </div>
+
+        <div class="online">
+            <span class="online-dot"></span>
+            Online
+        </div>
+    </header>
+
     <main class="dashboard">
 
-        <!-- Header -->
-        <header class="topbar">
-            <div class="brand">
-                <div class="brand-icon">
-                    <i class="fa-solid fa-layer-group"></i>
-                </div>
-                <span>Company Name</span>
-            </div>
-
-            <div class="online">
-                <span></span> Available
-            </div>
-        </header>
-
-        <!-- Profile Card -->
+        <!-- PROFILE CARD -->
         <section class="profile">
 
             <div class="avatar-wrapper">
                 <div class="avatar-ring"></div>
 
-                <!-- Palitan ang profile.jpg ng sarili mong picture -->
                 <img
-                    src="p1.jpg"
-                    alt="My Profile Picture"
+                    src="p1.jpeg"
+                    alt="Profile picture"
                     class="avatar"
                     id="profileImage"
-
                 >
 
-                <label class="edit-photo" for="photoInput"
-                       title="Change profile picture">
+                <label
+                    class="edit-photo"
+                    for="photoInput"
+                    title="Change profile picture"
+                >
                     <i class="fa-solid fa-camera"></i>
                 </label>
 
@@ -374,122 +724,201 @@
                     accept="image/*"
                     hidden
                 >
-
             </div>
 
-            <!-- Palitan ang pangalan -->
-            <h1>Hello, I'm <span id="userName">Kent John Branzuela</span></h1>
+            <div class="profile-info">
+                <div class="eyebrow">HELLO, I'M</div>
 
-            <p class="description" id="userDescription">
-                Welcome to my personal dashboard.
-                Connect with me through my social media accounts.
-            </p>
+                <h1>Kent John <span>Branzuela</span></h1>
 
-            <div class="profile-badge">
-                <i class="fa-solid fa-circle-check"></i>
-                Personal Profile
+                <p class="description" id="userDescription">
+                    Welcome to my personal dashboard.
+                    Connect with me through my social media accounts.
+                </p>
+
+                <div class="profile-badge">
+                    <i class="fa-solid fa-user"></i>
+                    Personal Profile
+                </div>
+            </div>
+
+            <div class="quote">
+                Small Steps<br>
+                Big Dreams
+                <span class="quote-line"></span>
             </div>
 
         </section>
 
-        <!-- Social Media Section -->
+        <!-- SOCIAL SECTION -->
         <div class="section-heading">
-            <h2>Connect With Me</h2>
-            <p>Find me on my social media platforms.</p>
+            <i class="fa-solid fa-users heading-icon"></i>
+
+            <div class="heading-text">
+                <h2>Connect <span>With Me</span></h2>
+                <p>Find me on my social media platforms.</p>
+            </div>
+
+            <div class="heading-line"></div>
         </div>
 
         <section class="social-grid">
 
+            <!-- CONTACT -->
             <a class="social-card contact"
                href="tel:+639051412422">
                 <div class="social-icon">
                     <i class="fa-solid fa-phone"></i>
                 </div>
                 <span class="social-name">Contact</span>
+                <span class="social-description">Call me directly</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- MESSENGER -->
             <a class="social-card messenger"
                href="https://m.me/kentjohnAbranzuela"
-               target="_blank" rel="noopener noreferrer">
+               target="_blank"
+               rel="noopener noreferrer">
                 <div class="social-icon">
                     <i class="fa-brands fa-facebook-messenger"></i>
                 </div>
                 <span class="social-name">Messenger</span>
+                <span class="social-description">Chat with me</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- FACEBOOK -->
             <a class="social-card facebook"
                href="https://www.facebook.com/kentjohnAbranzuela"
-               target="_blank" rel="noopener noreferrer">
+               target="_blank"
+               rel="noopener noreferrer">
                 <div class="social-icon">
                     <i class="fa-brands fa-facebook-f"></i>
                 </div>
                 <span class="social-name">Facebook</span>
+                <span class="social-description">Follow my page</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- TIKTOK -->
             <a class="social-card tiktok"
                href="https://www.tiktok.com/@kentjohnbranzuela"
-               target="_blank" rel="noopener noreferrer">
+               target="_blank"
+               rel="noopener noreferrer">
                 <div class="social-icon">
                     <i class="fa-brands fa-tiktok"></i>
                 </div>
                 <span class="social-name">TikTok</span>
+                <span class="social-description">Watch my videos</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- X / TWITTER -->
             <a class="social-card twitter"
                href="https://x.com/YOUR_USERNAME"
-               target="_blank" rel="noopener noreferrer">
+               target="_blank"
+               rel="noopener noreferrer">
                 <div class="social-icon">
                     <i class="fa-brands fa-x-twitter"></i>
                 </div>
                 <span class="social-name">X / Twitter</span>
+                <span class="social-description">Follow me</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- INSTAGRAM -->
             <a class="social-card instagram"
                href="https://www.instagram.com/kenjieee1/"
-               target="_blank" rel="noopener noreferrer">
+               target="_blank"
+               rel="noopener noreferrer">
                 <div class="social-icon">
                     <i class="fa-brands fa-instagram"></i>
                 </div>
                 <span class="social-name">Instagram</span>
+                <span class="social-description">See my updates</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- VIBER -->
             <a class="social-card viber"
                href="viber://chat?number=%2B639051412422">
                 <div class="social-icon">
                     <i class="fa-brands fa-viber"></i>
                 </div>
                 <span class="social-name">Viber</span>
+                <span class="social-description">Chat with me</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
+            <!-- WHATSAPP -->
             <a class="social-card whatsapp"
                href="https://wa.me/639051412422"
-               target="_blank" rel="noopener noreferrer">
+               target="_blank"
+               rel="noopener noreferrer">
                 <div class="social-icon">
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
                 <span class="social-name">WhatsApp</span>
+                <span class="social-description">Message me</span>
+                <span class="social-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
         </section>
 
-        <footer class="footer">
-            <p>
-                <i class="fa-solid fa-heart"></i>
-                Made with care
-            </p>
-            <p>© <span id="year"></span> Kent John Branzuela. All rights reserved.</p>
-        </footer>
-
     </main>
 
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+
+            <div class="footer-note">
+                Thanks for visiting!
+            </div>
+
+            <div class="footer-center">
+                <i class="fa-solid fa-leaf"></i>
+                <p>Made with care</p>
+                <p>
+                    © <span id="year"></span>
+                    Kent John Branzuela. All rights reserved.
+                </p>
+            </div>
+
+            <div class="footer-right">
+                MORE<br>OPPORTUNITIES AHEAD
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+
+        </div>
+    </footer>
+
     <script>
-        // Automatically update the year
+        // Automatically update copyright year
         document.getElementById("year").textContent =
             new Date().getFullYear();
 
-        // Change profile picture
+        // Profile picture preview
         const photoInput = document.getElementById("photoInput");
         const profileImage = document.getElementById("profileImage");
+
+        let currentImageURL = null;
 
         photoInput.addEventListener("change", function () {
             const file = this.files[0];
@@ -498,25 +927,25 @@
 
             if (!file.type.startsWith("image/")) {
                 alert("Please select a valid image.");
+                this.value = "";
                 return;
             }
 
-            const imageURL = URL.createObjectURL(file);
-            profileImage.src = imageURL;
+            // Release the previous temporary image
+            if (currentImageURL) {
+                URL.revokeObjectURL(currentImageURL);
+            }
+
+            currentImageURL = URL.createObjectURL(file);
+            profileImage.src = currentImageURL;
         });
 
-        // Optional: change your profile name and description here
-        const profileSettings = {
-            name: "Kent John Branzuela",
-            description:
-                "Welcome to my personal dashboard. Connect with me through my social media accounts."
-        };
-
-        document.getElementById("userName").textContent =
-            profileSettings.name;
-
-        document.getElementById("userDescription").textContent =
-            profileSettings.description;
+        // Fallback if p1.jpg is missing
+        profileImage.addEventListener("error", function () {
+            this.onerror = null;
+            this.src =
+                "https://placehold.co/400x400/e8e8df/193c30?text=Your+Photo";
+        });
     </script>
 
 </body>
